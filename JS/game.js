@@ -67,7 +67,7 @@ const Game = {
     this.player.move();
     this.obstacles.forEach(obs => obs.move()) 
     this.obstacles.forEach(obs => obs.bounce()) 
-    this.target.move();
+    // this.target.move();
 
   },
 
