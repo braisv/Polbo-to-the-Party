@@ -69,7 +69,7 @@ const Game = {
     this.obstacles.forEach(obs => obs.bounce()) 
     // this.target.move();
 
-  },
+  }, 
 
   generateObstacles: function() {
     if (this.counter % 100 === 0) {
