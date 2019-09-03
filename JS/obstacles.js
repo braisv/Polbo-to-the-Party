@@ -6,11 +6,11 @@ class Obstacles {
 
 		this.image = new Image()
 		this.image.src = '../Images/FlameDemon Evolved.png'
-		this.paramX = Math.random() * (this.gameWidth - 70)
-		this.paramY = Math.random() * (this.gameHeight - 70)
+		this.paramX = Math.random() * (this.gameWidth - 110)
+		this.paramY = Math.random() * (this.gameHeight - 200)
 		this.width = 70
     this.height = 70
-    this.sense = -5
+    this.sense = -2
 	}
 
 	draw() {
@@ -22,11 +22,11 @@ class Obstacles {
   }
   
   bounce() {
-    if (this.paramX <= 0) {
-      this.sense = 5
+    if (this.paramX <= 40) {
+      this.sense = 2
     }
-    if (this.paramX >= (this.gameWidth-70)) {
-      this.sense = -5
+    if (this.paramX >= (this.gameWidth-110)) {
+      this.sense = -2
     }
   }
 }

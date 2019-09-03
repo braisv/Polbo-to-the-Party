@@ -7,11 +7,11 @@ class Player {
     this.ctx = ctx;
     this.keys = keys;
 
-    this.paramX = 40;
-    this.paramY = this.canvasHeight * .75;
+    this.paramX = this.canvasWidth/2
+    this.paramY = this.canvasHeight * .85;
 
     this.img = new Image();
-    this.img.src = '../ship.png';
+    this.img.src = './Images/ship.png';
 
     this.width = 60;
     this.height = 70;
@@ -33,16 +33,16 @@ class Player {
     window.onkeydown = e => {
       switch (e.keyCode) {
         case 39:
-          this.angle += 10;
+          this.paramX += 20;
           break;
         case 37:
-          this.angle -= 10;
+          this.paramX -= 20;
           break;
         case 38:
-          this.factor += 1;
+          this.paramY -= 20;
           break;
         case 40:
-          this.factor -= 1;
+          this.paramY += 20;
           break;
       }
     };

@@ -34,6 +34,7 @@ const Game = {
       this.drawAll();
       this.moveAll();
       this.generateObstacles();
+      this.isCollision();
       
     }, 1000 / this.fps);
   },
@@ -81,6 +82,19 @@ const Game = {
 
   clear: function () {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  },
+
+  isCollision: function() {   
+    this.obstacles.some(obs => {
+			if (
+				this.player.paramX + 30 > obs.paramX &&
+				this.player.paramX < obs.paramX + 40 &&
+        this.player.paramY < obs.paramY + 40 &&
+        this.player.paramY + 40 > obs.paramY
+			) {
+        this.gameOver()
+      }
+		})
   },
 
 };

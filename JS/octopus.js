@@ -7,7 +7,7 @@ class Target {
 		this.image = new Image()
 		this.image.src = '../Images/gameCharacter.png'
 		this.paramX = Math.random() * (this.gameWidth - 70)
-		this.paramY = Math.random() * (this.gameHeight - 70)
+		this.paramY = Math.random() * 100
 		this.width = 70
     this.height = 70
     this.sense = -5
