@@ -6,6 +6,7 @@ const Game = {
   height: undefined,
   counter: 0,
   obstacles: [],
+  target: [],
   keys: {
     ArrowLeft: 37,
     ArrowRight: 39,
@@ -30,12 +31,12 @@ const Game = {
       this.clear();
       this.counter++;
       if (this.counter > 1000) this.counter = 0;
-      console.log(this.counter);
       this.drawAll();
       this.moveAll();
       this.generateObstacles();
       this.isCollision();
       this.isKilling();
+      this.isTarget();
       
     }, 1000 / this.fps);
   },
@@ -53,7 +54,7 @@ const Game = {
     // this.matrix = new Matrix(this.width, this.height, this.ctx);
     this.player = new Player(this.width, this.height, this.ctx, this.keys);
     this.obstacles = [];
-    this.target = new Target(this.ctx, this.width, this.height);
+    this.target = [];
 
   },
 
@@ -62,7 +63,7 @@ const Game = {
     // this.matrix.draw();
     this.player.draw();
     this.obstacles.forEach(obs => obs.draw()) 
-    this.target.draw();
+    this.target.forEach(oct => oct.draw()) 
   },
 
   moveAll: function () {
@@ -76,7 +77,8 @@ const Game = {
 
   generateObstacles: function() {
     if (this.counter % 100 === 0) {
-      if (this.obstacles.length <= 5) {
+      if (this.obstacles.length <= 0) {
+        this.target.push(new Target(this.ctx, this.width, this.height))
         this.obstacles.push(new Obstacles(this.ctx, this.width, this.height))
       }
     }
@@ -108,6 +110,35 @@ const Game = {
         this.target.paramY + this.target.height > obs.paramY
 			) {
         this.gameOver()
+      }
+		})
+  },
+
+  isCollision: function() {   
+    this.obstacles.some(obs => {
+			if (
+				this.player.paramX + 30 > obs.paramX &&
+				this.player.paramX < obs.paramX + 40 &&
+        this.player.paramY < obs.paramY + 40 &&
+        this.player.paramY + 40 > obs.paramY
+			) {
+        this.gameOver()
+      }
+		})
+  },
+
+  isTarget: function() {   
+    this.target.some(oct => { 
+			if (
+				this.player.paramX + 30 > oct.paramX &&
+				this.player.paramX < oct.paramX + 40 &&
+        this.player.paramY < oct.paramY + 40 &&
+        this.player.paramY + 40 > oct.paramY
+			) {
+        console.log('Targeted')
+        this.target.push(new Target(this.ctx, this.width, this.height))
+        this.target.shift()
+        this.obstacles.push(new Obstacles(this.ctx, this.width, this.height))
       }
 		})
   },
