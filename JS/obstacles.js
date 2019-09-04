@@ -5,21 +5,21 @@ class Obstacles {
     this.gameHeight = gameHeight
 
 		this.img = new Image()
-		this.img.src = '../Images/criatura 60x60 360.png'
+		this.img.src = '../Images/serpiente.png'
 		this.paramX = Math.random() * (this.gameWidth - 110)
 		this.paramY = Math.random() * (this.gameHeight - 200)
 		this.width = 70
-    this.height = 70
+    this.height = 100
     this.sense = -2
 
-    this.img.frames = 6
-    this.img.frameIndex = 3
+    this.img.frames = 10
+    this.img.frameIndex = 0
     this.framecounter = 0
 
     this.sy = 0
     
-    this.swidth = 60
-    this.sheight = 60
+    this.swidth = 110
+    this.sheight = 55
 
 
 	}
@@ -43,12 +43,14 @@ class Obstacles {
   
   animateImg() {
     if (this.framecounter % 20 === 0 && this.sense < 0) {
+      this.sy = 55
       this.img.frameIndex -= 1;
-      if (this.img.frameIndex < 0) this.img.frameIndex = 2
+      if (this.img.frameIndex < 0) this.img.frameIndex = 10
     }
     if (this.framecounter % 20 === 0 && this.sense > 0) {
+      this.sy = 0
       this.img.frameIndex += 1;
-      if (this.img.frameIndex > 5) this.img.frameIndex = 3
+      if (this.img.frameIndex > 9) this.img.frameIndex = 0
     }
   }
 

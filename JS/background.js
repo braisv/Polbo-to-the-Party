@@ -7,7 +7,7 @@ class Background {
     this.paramX = 0;
     this.paramY = 0;
 
-    this.dx = 1;
+    this.dx = .1;
 
     this.img = new Image();
     this.img.src = '../Images/sea background.png';

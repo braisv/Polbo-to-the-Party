@@ -82,6 +82,7 @@ class Player {
   }
 
   move() {
+    
     // if (this.paramY <= this.topEdge) {
     //   this.paramY += this.speed;
     //   this.speed += gravity;

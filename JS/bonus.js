@@ -1,11 +1,11 @@
-class Target {
+class Bonus {
 	constructor(ctx, gameWidth, gameHeight) {
 		this.ctx = ctx
     this.gameWidth = gameWidth
     this.gameHeight = gameHeight
 
 		this.img = new Image()
-    this.img.src = '../Images/Octopus 100x100 1000.png'
+    this.img.src = '../Images/marinero.png'
 
     this.img.frames = 10
     this.img.frameIndex = 0
@@ -44,7 +44,7 @@ class Target {
   animateImg() {
     if (this.framecounter % 30 === 0) {
       this.img.frameIndex += 1;
-      if (this.img.frameIndex > 8) this.img.frameIndex = 0
+      if (this.img.frameIndex > 2) this.img.frameIndex = 0
     }
   }
 }
