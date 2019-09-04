@@ -35,6 +35,7 @@ const Game = {
       this.moveAll();
       this.generateObstacles();
       this.isCollision();
+      this.isKilling();
       
     }, 1000 / this.fps);
   },
@@ -91,6 +92,19 @@ const Game = {
 				this.player.paramX < obs.paramX + 40 &&
         this.player.paramY < obs.paramY + 40 &&
         this.player.paramY + 40 > obs.paramY
+			) {
+        this.gameOver()
+      }
+		})
+  },
+
+  isKilling: function() {   
+    this.obstacles.some(obs => {
+			if (
+        this.target.paramX + this.target.width > obs.paramX &&
+				this.target.paramX < obs.paramX + obs.width &&
+        this.target.paramY < obs.paramY + obs.height &&
+        this.target.paramY + this.target.height > obs.paramY
 			) {
         this.gameOver()
       }
