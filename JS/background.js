@@ -7,8 +7,10 @@ class Background {
     this.paramX = 0;
     this.paramY = 0;
 
+    this.dx = 1;
+
     this.img = new Image();
-    this.img.src = '../Images/sea.jpg';
+    this.img.src = '../Images/sea background.png';
   }
 
   draw() {
@@ -19,5 +21,18 @@ class Background {
       this.width,
       this.height
     );
+
+    this.ctx.drawImage(
+      this.img,
+      this.paramX+this.width,
+      this.paramY,
+      this.width,
+      this.height
+    );
+  }
+
+  move() {
+    this.paramX -= this.dx;
+    if (this.paramX <= -this.width) this.paramX = 0;
   }
 }

@@ -67,6 +67,7 @@ const Game = {
 
   moveAll: function () {
     this.player.move();
+    this.background.move();
     this.obstacles.forEach(obs => obs.move()) 
     this.obstacles.forEach(obs => obs.bounce()) 
     // this.target.move();
