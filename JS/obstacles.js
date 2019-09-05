@@ -5,10 +5,10 @@ class Obstacles {
     this.gameHeight = gameHeight
 
 		this.img = new Image()
-		this.img.src = '../Images/serpiente.png'
+		this.img.src = '../Images/bad snake.png'
 		this.paramX = Math.random() * (this.gameWidth - 110)
-		this.paramY = Math.random() * (this.gameHeight - 200)
-		this.width = 70
+		this.paramY = Math.random() * (this.gameHeight - 300)
+		this.width = 100
     this.height = 100
     this.sense = -2
 
@@ -18,8 +18,8 @@ class Obstacles {
 
     this.sy = 0
     
-    this.swidth = 110
-    this.sheight = 55
+    this.swidth = 100
+    this.sheight = 100
 
 
 	}
@@ -43,9 +43,9 @@ class Obstacles {
   
   animateImg() {
     if (this.framecounter % 20 === 0 && this.sense < 0) {
-      this.sy = 55
+      this.sy = 100
       this.img.frameIndex -= 1;
-      if (this.img.frameIndex < 0) this.img.frameIndex = 10
+      if (this.img.frameIndex < 0) this.img.frameIndex = 9
     }
     if (this.framecounter % 20 === 0 && this.sense > 0) {
       this.sy = 0

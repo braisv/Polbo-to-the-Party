@@ -7,30 +7,32 @@ class Player {
     this.ctx = ctx;
     this.keys = keys;
 
-    this.paramX = this.canvasWidth/2
+    this.paramX = this.canvasWidth / 2
     this.paramY = this.canvasHeight * .75;
 
     this.img = new Image();
-    this.img.src = '../Images/barco 200x206 1404.png';
+    this.img.src = '../Images/boat square.png';
 
-    this.width = 150;
-    this.height = 160;
+    this.width = 100;
+    this.height = 100;
     this.speed = 30;
 
     this.factor = 1;
     this.angle = 0;
     this.line;
 
-    this.img.frames = 7
-    this.img.frameIndex = 3
-    this.framecounter = 0
+    this.img.frames = 7;
+    this.img.frameIndex = 3;
+    this.framecounter = 0;
 
-    this.sy = 0
-    
-    this.swidth = 200
-    this.sheight = 206
+    this.sy = 0;
 
-    this.setListeners();
+    this.swidth = 100;
+    this.sheight = 100;
+
+    this.pause = false;
+
+    // this.setListeners();
   }
 
   draw() {
@@ -46,13 +48,13 @@ class Player {
       this.paramY,
       this.height,
       this.width
-      );
+    );
 
-      this.framecounter++
+    this.framecounter++
 
   }
 
-  setListeners() {
+  move() {
     window.onkeydown = e => {
       switch (e.keyCode) {
         case 39:
@@ -73,16 +75,20 @@ class Player {
           break;
         case 40:
           this.paramY += this.speed;
-          this.sy = 206
+          this.sy = 100
           if (this.img.frameIndex < 3) this.img.frameIndex += 1
           if (this.img.frameIndex > 3) this.img.frameIndex -= 1
           break;
+        case 32:
+            if (!this.pause) Game.stop()
+            if (this.pause) Game.interval()
+            break;
       }
     };
   }
 
-  move() {
-    
+  // move() {
+
     // if (this.paramY <= this.topEdge) {
     //   this.paramY += this.speed;
     //   this.speed += gravity;
@@ -98,5 +104,5 @@ class Player {
     //   this.speed = 1;
     //   this.paramY = 0;
     // }
-  }
+  // }
 }

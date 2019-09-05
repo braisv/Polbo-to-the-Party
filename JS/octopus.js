@@ -14,7 +14,7 @@ class Target {
     this.sy = 0
 
 		this.paramX = Math.random() * (this.gameWidth - 70)
-		this.paramY = Math.random() * (this.gameHeight - 200)
+		this.paramY = Math.random() * (this.gameHeight - 300)
 		this.width = 70
     this.height = 70
 
