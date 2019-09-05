@@ -11,7 +11,6 @@ const Game = {
   target: [],
   bonus: [],
   life: 3,
-  pause: false,
   startgame: false,
   endgame: false,
   keys: {
@@ -30,7 +29,8 @@ const Game = {
     this.height = window.innerHeight * .98;
     this.canvas.width = this.width;
     this.canvas.height = this.height;
-    this.screen = new Screen(this.ctx, this.width, this.height)
+    this.screen = new Screen(this.ctx, this.width, this.height);
+    this.soundIntro = new Audio('../Audio/intro.mp3');
     this.initialScreen();
   },
 
@@ -43,10 +43,15 @@ const Game = {
   interval: function() {
     this.intervalID = setInterval(() => {
       this.clear();
-      if (!this.startgame) this.screen.drawInit();
-      else {
+      if (!this.startgame) {
+        PlayAudio(darkWorld);
+        this.screen.drawInit();
+      } else {
         this.counter++;
         if (this.counter > 1000) this.counter = 0;
+        this.soundIntro.pause();
+        this.soundMain.volume=0.3;
+        this.soundMain.play();
         this.drawAll();
         this.moveAll();
         this.generateObstacles();
@@ -68,12 +73,17 @@ const Game = {
   gameOver: function () {
     this.clear();
     this.stop();
+    setTimeout( () => {
+      this.soundDark.volume = 0.5
+      this.soundDark.play();
+
+    }, 2000)
     this.endgame = true;
     this.screen.drawGameOver()
     window.onkeydown = e => {
       switch (e.keyCode) {
         case 13:
-          this.start()
+          this.start();
           this.endgame = false;
           break;
       }
@@ -89,6 +99,12 @@ const Game = {
     this.target = [];
     this.score = 0;
     this.life = 3;
+    this.soundCollision = new Audio('../Audio/collision.wav');
+    this.soundMain = new Audio('../Audio/main.mp3');
+    this.soundDeath = new Audio('../Audio/death.wav')
+    this.soundPause = new Audio('../Audio/pause.wav')
+    this.soundTarget = new Audio('../Audio/target.wav')
+    this.soundDark = new Audio('../Audio/dark world.mp3')
   },
 
   pause: function () {
@@ -170,6 +186,9 @@ const Game = {
         if (this.life <= 0) {
           console.log('hola')
           this.gameOver();
+          this.soundDeath.play()
+        } else {
+          this.soundCollision.play()
         }
       }
     })
@@ -183,7 +202,7 @@ const Game = {
         this.player.paramY < oct.paramY + 60 &&
         this.player.paramY + 80 > oct.paramY
       ) {
-        console.log('Targeted')
+        this.soundTarget.play()
         this.capture++
         this.score++
         this.target.push(new Target(this.ctx, this.width, this.height))
@@ -201,7 +220,7 @@ const Game = {
         this.player.paramY < sail.paramY + sail.height &&
         this.player.paramY + this.player.height > sail.paramY
       ) {
-        console.log('Bonanza')
+        this.soundTarget.play()
         this.bonus.shift()
         this.obstacles.shift()
         this.life++
