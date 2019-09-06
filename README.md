@@ -13,7 +13,7 @@ Move the boat with your arrow keys and if you need a break, you can pause the ga
 The movement of the boat should be as realistic as possible. This is something I'm still working on. In spite of being proud of how it looks nowaday, I will upload the movement method when it's finished.
 
 # ENJOY
-https://braisv.github.io/Polvo-to-the-Party/
+https://braisv.github.io/Polbo-to-the-Party/
 
 <br><br>
 <p align="center">
