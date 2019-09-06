@@ -11,7 +11,7 @@ class Player {
     this.paramY = this.canvasHeight * .75;
 
     this.img = new Image();
-    this.img.src = '../Images/boat square.png';
+    this.img.src = 'Images/boat square.png';
 
     this.width = 100;
     this.height = 100;

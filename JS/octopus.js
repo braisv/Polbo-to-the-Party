@@ -5,7 +5,7 @@ class Target {
     this.gameHeight = gameHeight
 
 		this.img = new Image()
-    this.img.src = '../Images/Octopus 100x100 1000.png'
+    this.img.src = 'Images/Octopus 100x100 1000.png'
 
     this.img.frames = 10
     this.img.frameIndex = 0

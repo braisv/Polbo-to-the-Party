@@ -5,7 +5,7 @@ class Bonus {
     this.gameHeight = gameHeight
 
 		this.img = new Image()
-    this.img.src = '../Images/marinero.png'
+    this.img.src = 'Images/marinero.png'
 
     this.img.frames = 10
     this.img.frameIndex = 0

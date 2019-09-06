@@ -5,7 +5,7 @@ class Obstacles {
     this.gameHeight = gameHeight
 
 		this.img = new Image()
-		this.img.src = '../Images/bad snake.png'
+		this.img.src = 'Images/bad snake.png'
 		this.paramX = Math.random() * (this.gameWidth - 110)
     this.paramY = Math.random() * (this.gameHeight - 300)
 		this.width = 100

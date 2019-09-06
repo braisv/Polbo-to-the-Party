@@ -10,10 +10,10 @@ class Scoreboard {
     this.dx = .1;
 
     this.img = new Image();
-    this.img.src = '../Images/background2.png';
+    this.img.src = 'Images/background2.png';
 
     this.image = new Image();
-    this.image.src = '../Images/pirate.png'
+    this.image.src = 'Images/pirate.png'
   }
 
   draw() {
