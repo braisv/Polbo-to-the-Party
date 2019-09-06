@@ -112,10 +112,10 @@ const Game = {
     this.soundIntro = new Audio('Audio/intro.mp3');
     this.soundCollision = new Audio('Audio/collision.wav');
     this.soundMain = new Audio('Audio/main.mp3');
-    this.soundDeath = new Audio('Audio/death.wav')
-    this.soundPause = new Audio('Audio/pause.wav')
-    this.soundTarget = new Audio('Audio/target.wav')
-    this.soundDark = new Audio('Audio/dark world.mp3')
+    this.soundDeath = new Audio('Audio/death.wav');
+    this.soundPause = new Audio('Audio/pause.wav');
+    this.soundTarget = new Audio('Audio/target.wav');
+    this.soundDark = new Audio('Audio/dark world.mp3');
   },
 
   pause: function () {
