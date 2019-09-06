@@ -12,7 +12,10 @@ const Game = {
   bonus: [],
   life: 3,
   startgame: false,
+  pause: false,
+  pausesound: false,
   endgame: false,
+  introsound: false,
   keys: {
     ArrowLeft: 37,
     ArrowRight: 39,
@@ -30,7 +33,6 @@ const Game = {
     this.canvas.width = this.width;
     this.canvas.height = this.height;
     this.screen = new Screen(this.ctx, this.width, this.height);
-    this.soundIntro = new Audio('../Audio/intro.mp3');
     this.initialScreen();
   },
 
@@ -40,17 +42,30 @@ const Game = {
     this.interval();
   },
 
-  interval: function() {
+  interval: function () {
     this.intervalID = setInterval(() => {
+      if (!this.pause) {
+        this.soundMain.pause();
+        this.screen.drawPause();
+        if(this.pausesound)
+        this.soundPause.play();
+        setTimeout ( () => {
+          this.soundPause.pause();
+          this.soundPause.currentTime=0;
+          this.pausesound = false;
+        }, 500)
+        return
+      }
+      if (!this.introsound) this.soundIntro.play();
+      if (this.introsound) this.soundIntro.pause();
+      this.soundDark.pause();
       this.clear();
       if (!this.startgame) {
-        PlayAudio(darkWorld);
         this.screen.drawInit();
       } else {
         this.counter++;
         if (this.counter > 1000) this.counter = 0;
-        this.soundIntro.pause();
-        this.soundMain.volume=0.3;
+        this.soundMain.volume = 0.7;
         this.soundMain.play();
         this.drawAll();
         this.moveAll();
@@ -60,8 +75,6 @@ const Game = {
         this.isTarget();
         this.isBonus();
         this.drawScore();
-        // this.component.update();
-        
       }
     }, 1000 / this.fps);
   },
@@ -73,17 +86,15 @@ const Game = {
   gameOver: function () {
     this.clear();
     this.stop();
-    setTimeout( () => {
-      this.soundDark.volume = 0.5
-      this.soundDark.play();
-
-    }, 2000)
+    this.soundMain.pause();
+    this.soundMain.currentTime = 0;
     this.endgame = true;
     this.screen.drawGameOver()
     window.onkeydown = e => {
       switch (e.keyCode) {
         case 13:
           this.start();
+          this.soundDark.pause();
           this.endgame = false;
           break;
       }
@@ -94,11 +105,11 @@ const Game = {
     this.background = new Background(this.width, this.height, this.ctx);
     this.scoreboard = new Scoreboard(this.width, this.height, this.ctx);
     this.player = new Player(this.width, this.height, this.ctx, this.keys);
-    this.component = new Component(this.ctx, this.keys, 30, 30, "red", 225, 225);
     this.obstacles = [];
     this.target = [];
     this.score = 0;
     this.life = 3;
+    this.soundIntro = new Audio('../Audio/intro.mp3');
     this.soundCollision = new Audio('../Audio/collision.wav');
     this.soundMain = new Audio('../Audio/main.mp3');
     this.soundDeath = new Audio('../Audio/death.wav')
@@ -115,7 +126,6 @@ const Game = {
     this.background.draw();
     this.scoreboard.draw();
     this.player.draw();
-    // this.component.draw();
     this.obstacles.forEach(obs => obs.draw())
     this.target.forEach(oct => oct.draw())
     this.bonus.forEach(oct => oct.draw())
@@ -124,7 +134,6 @@ const Game = {
 
   moveAll: function () {
     this.player.move();
-    this.component.move();
     this.background.move();
     this.obstacles.forEach(obs => obs.move())
     this.obstacles.forEach(obs => obs.bounce())
@@ -137,6 +146,7 @@ const Game = {
       switch (e.keyCode) {
         case 13:
           this.startgame = true;
+          this.introsound = !this.introsound;
           break;
       }
     }
@@ -174,24 +184,30 @@ const Game = {
   },
 
   isCollision: function () {
-    this.obstacles.some(obs => {
+    let obstacleCollidedIndex = -1;
+
+    this.obstacles.some((obs, idx) => {
       if (
         this.player.paramX + 70 > obs.paramX &&
         this.player.paramX < obs.paramX + 70 &&
         this.player.paramY < obs.paramY + 70 &&
         this.player.paramY + 70 > obs.paramY
       ) {
-        this.obstacles.splice(obs, 1)
-        this.life--
-        if (this.life <= 0) {
-          console.log('hola')
-          this.gameOver();
-          this.soundDeath.play()
-        } else {
-          this.soundCollision.play()
-        }
+        this.soundCollision.play()
+        obstacleCollidedIndex = idx
       }
     })
+
+    if (obstacleCollidedIndex > -1) {
+      this.obstacles.splice(obstacleCollidedIndex, 1)
+      this.life--
+      
+      if (this.life <= 0) {
+        console.log('hola')
+        this.gameOver();
+        this.soundDeath.play()
+      }
+    }
   },
 
   isTarget: function () {
@@ -220,6 +236,7 @@ const Game = {
         this.player.paramY < sail.paramY + sail.height &&
         this.player.paramY + this.player.height > sail.paramY
       ) {
+        this.soundTarget.volume= .5;
         this.soundTarget.play()
         this.bonus.shift()
         this.obstacles.shift()

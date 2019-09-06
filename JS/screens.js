@@ -5,10 +5,10 @@ class Screen {
     this.gameHeight = gameHeight
 
     this.initImg = new Image()
-    this.initImg.src = '../Images/Cover Juego.png'
+    this.initImg.src = '../Images/Cover octoskull.png'
 
     this.pauseImg = new Image()
-    this.pauseImg.src = '../Images/Cover Pause.png'
+    this.pauseImg.src = '../Images/Pause.png'
 
     this.gOverImg = new Image()
     this.gOverImg.src = '../Images/Cover trasera Juego.png'

@@ -10,7 +10,7 @@ class Scoreboard {
     this.dx = .1;
 
     this.img = new Image();
-    this.img.src = '../Images/background letter.png';
+    this.img.src = '../Images/background2.png';
 
     this.image = new Image();
     this.image.src = '../Images/pirate.png'
@@ -28,22 +28,23 @@ class Scoreboard {
 
   print(score, life) {
     this.ctx.font = "60px helvetica"
-    this.ctx.fillStyle = "white";
-    this.ctx.fillText(Math.floor(score), 120, this.height - 40);
-    this.ctx.fillText(Math.floor(life), this.width/3.2, this.height - 40);
+    this.ctx.fillStyle = "black";
+    this.ctx.fillText(Math.floor(score), 0 + this.width/3, this.height - this.height/14);
+    this.ctx.fillText(Math.floor(life), this.width - this.width/8
+    , this.height - this.height/14);
   }
 
   life() {
     this.ctx.drawImage(
       this.image,
-      this.paramX + this.width/4,
-      this.paramY + this.height-80,
+      this.width - this.width/12,
+      this.height - this.height/8,
       50,
       50
     );
   }
 
   reset() {
-    
+
   }
 }
